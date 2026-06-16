@@ -1152,7 +1152,7 @@ body {
     <div class="choice-title">Prêt à souscrire ?</div>
     <div class="choice-subtitle">Choisissez comment vous souhaitez procéder pour finaliser votre mutuelle personnalisée.</div>
     <div class="choice-buttons">
-      <button class="choice-btn primary" onclick="goTo('s-subscribe'); initSubscribeForm()">
+      <button class="choice-btn primary" onclick="initSubscribeForm()">
         <span>📝</span> Je souhaite souscrire dès maintenant
       </button>
       <button class="choice-btn secondary" onclick="goTo('s-contact')">
@@ -1830,16 +1830,13 @@ function goToSubscribeSante() {
     goTo('s-subscribe-sante');
   } else {
     // Passer directement à la section suivante
-    goToSubscribeConducteur();
+    goToSubscribeConducteurFromGeneral();
   }
 }
 
 function goToSubscribeConducteur() {
-  // Si on vient de s-subscribe-sante, valider d'abord
-  const currentScreen = document.querySelector('.screen.active').id;
-  if (currentScreen === 's-subscribe-sante') {
-    if (!validateCurrentScreen('s-subscribe-sante')) return;
-  }
+  // Valider l'écran actuel (s-subscribe-sante)
+  if (!validateCurrentScreen('s-subscribe-sante')) return;
   
   // Vérifier si la section conducteur doit être affichée
   const hasVehicule = answers['vehicule'] && answers['vehicule'].yes;
@@ -1847,17 +1844,47 @@ function goToSubscribeConducteur() {
     goTo('s-subscribe-conducteur');
   } else {
     // Passer directement à la section suivante
-    goToSubscribeLogement();
+    goToSubscribeLogementFromSante();
+  }
+}
+
+function goToSubscribeConducteurFromGeneral() {
+  // Vérifier si la section conducteur doit être affichée
+  const hasVehicule = answers['vehicule'] && answers['vehicule'].yes;
+  if (hasVehicule) {
+    goTo('s-subscribe-conducteur');
+  } else {
+    // Passer directement à la section suivante
+    goToSubscribeLogementFromGeneral();
   }
 }
 
 function goToSubscribeLogement() {
-  // Si on vient de s-subscribe-conducteur, valider d'abord
-  const currentScreen = document.querySelector('.screen.active').id;
-  if (currentScreen === 's-subscribe-conducteur') {
-    if (!validateCurrentScreen('s-subscribe-conducteur')) return;
-  }
+  // Valider l'écran actuel (s-subscribe-conducteur)
+  if (!validateCurrentScreen('s-subscribe-conducteur')) return;
   
+  // Vérifier si la section logement doit être affichée
+  const hasLogement = answers['logement'] && answers['logement'].yes;
+  if (hasLogement) {
+    goTo('s-subscribe-logement');
+  } else {
+    // Passer directement à la section paiement
+    goTo('s-subscribe-paiement');
+  }
+}
+
+function goToSubscribeLogementFromSante() {
+  // Vérifier si la section logement doit être affichée
+  const hasLogement = answers['logement'] && answers['logement'].yes;
+  if (hasLogement) {
+    goTo('s-subscribe-logement');
+  } else {
+    // Passer directement à la section paiement
+    goTo('s-subscribe-paiement');
+  }
+}
+
+function goToSubscribeLogementFromGeneral() {
   // Vérifier si la section logement doit être affichée
   const hasLogement = answers['logement'] && answers['logement'].yes;
   if (hasLogement) {
