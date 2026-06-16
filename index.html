@@ -120,9 +120,13 @@ body {
 }
 
 /* ═══════════════════════════════════════
-   ── SCREEN: SUBSCRIBE FORM ──
+   ── SCREEN: SUBSCRIBE FORM (Multi-step screens) ──
 ═══════════════════════════════════════ */
-#s-subscribe {
+#s-subscribe-general,
+#s-subscribe-sante,
+#s-subscribe-conducteur,
+#s-subscribe-logement,
+#s-subscribe-paiement {
   background: var(--bg);
   overflow-y: auto;
 }
@@ -1158,18 +1162,16 @@ body {
   </div>
 </div>
 
-<!-- ══════════ SUBSCRIBE FORM ═════════ -->
-<div class="screen" id="s-subscribe">
+<!-- ══════════ SUBSCRIBE FORM - STEP 1: GENERAL ═════════ -->
+<div class="screen" id="s-subscribe-general">
   <div class="subscribe-header">
     <div class="sh-badge">🔒 Souscription sécurisée</div>
-    <h2>Finalisez votre inscription</h2>
-    <p>Remplissez les informations nécessaires pour activer votre couverture.</p>
+    <h2>1. Informations générales</h2>
+    <p>Remplissez vos informations personnelles.</p>
   </div>
   
   <div class="subscribe-body">
-    <!-- Step 1: Informations générales -->
-    <div class="form-section" id="section-general">
-      <div class="form-section-title">1. Informations générales</div>
+    <div class="form-section">
       <div class="form-grid">
         <div class="form-row">
           <div class="form-field">
@@ -1197,13 +1199,22 @@ body {
         </div>
       </div>
       <div class="form-actions">
-        <button class="btn-form primary" onclick="nextStep('general')">Suivant →</button>
+        <button class="btn-form primary" onclick="goToSubscribeSante()">Suivant →</button>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- Step 2: Informations santé (si mutuelle santé demandée) -->
-    <div class="form-section" id="section-sante" style="display:none">
-      <div class="form-section-title">2. Informations santé</div>
+<!-- ══════════ SUBSCRIBE FORM - STEP 2: SANTE ═══════════ -->
+<div class="screen" id="s-subscribe-sante">
+  <div class="subscribe-header">
+    <div class="sh-badge">🔒 Souscription sécurisée</div>
+    <h2>2. Informations santé</h2>
+    <p>Remplissez vos informations de santé.</p>
+  </div>
+  
+  <div class="subscribe-body">
+    <div class="form-section">
       <div class="form-grid">
         <div class="form-field">
           <label>Numéro de sécurité sociale *</label>
@@ -1225,14 +1236,23 @@ body {
         </div>
       </div>
       <div class="form-actions">
-        <button class="btn-form secondary" onclick="prevStep('sante')">← Retour</button>
-        <button class="btn-form primary" onclick="nextStep('sante')">Suivant →</button>
+        <button class="btn-form secondary" onclick="goTo('s-subscribe-general')">← Retour</button>
+        <button class="btn-form primary" onclick="goToSubscribeConducteur()">Suivant →</button>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- Step 3: Informations conducteur (si assurance auto demandée) -->
-    <div class="form-section" id="section-conducteur" style="display:none">
-      <div class="form-section-title">3. Informations conducteur</div>
+<!-- ══════════ SUBSCRIBE FORM - STEP 3: CONDUCTEUR ══════════ -->
+<div class="screen" id="s-subscribe-conducteur">
+  <div class="subscribe-header">
+    <div class="sh-badge">🔒 Souscription sécurisée</div>
+    <h2>3. Informations conducteur</h2>
+    <p>Remplissez vos informations de conducteur.</p>
+  </div>
+  
+  <div class="subscribe-body">
+    <div class="form-section">
       <div class="form-grid">
         <div class="form-row">
           <div class="form-field">
@@ -1277,14 +1297,23 @@ body {
         </div>
       </div>
       <div class="form-actions">
-        <button class="btn-form secondary" onclick="prevStep('conducteur')">← Retour</button>
-        <button class="btn-form primary" onclick="nextStep('conducteur')">Suivant →</button>
+        <button class="btn-form secondary" onclick="goTo('s-subscribe-sante')">← Retour</button>
+        <button class="btn-form primary" onclick="goToSubscribeLogement()">Suivant →</button>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- Step 4: Informations logement (si assurance habitation demandée) -->
-    <div class="form-section" id="section-logement" style="display:none">
-      <div class="form-section-title">4. Informations sur le logement</div>
+<!-- ══════════ SUBSCRIBE FORM - STEP 4: LOGEMENT ═══════════ -->
+<div class="screen" id="s-subscribe-logement">
+  <div class="subscribe-header">
+    <div class="sh-badge">🔒 Souscription sécurisée</div>
+    <h2>4. Informations sur le logement</h2>
+    <p>Remplissez vos informations de logement.</p>
+  </div>
+  
+  <div class="subscribe-body">
+    <div class="form-section">
       <div class="form-grid">
         <div class="form-field">
           <label>Adresse complète *</label>
@@ -1335,14 +1364,23 @@ body {
         </div>
       </div>
       <div class="form-actions">
-        <button class="btn-form secondary" onclick="prevStep('logement')">← Retour</button>
-        <button class="btn-form primary" onclick="nextStep('logement')">Suivant →</button>
+        <button class="btn-form secondary" onclick="goTo('s-subscribe-conducteur')">← Retour</button>
+        <button class="btn-form primary" onclick="goTo('s-subscribe-paiement')">Suivant →</button>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- Step 5: Informations paiement -->
-    <div class="form-section" id="section-paiement" style="display:none">
-      <div class="form-section-title">5. Informations de paiement</div>
+<!-- ══════════ SUBSCRIBE FORM - STEP 5: PAIEMENT ══════════ -->
+<div class="screen" id="s-subscribe-paiement">
+  <div class="subscribe-header">
+    <div class="sh-badge">🔒 Souscription sécurisée</div>
+    <h2>5. Informations de paiement</h2>
+    <p>Choisissez votre mode de paiement.</p>
+  </div>
+  
+  <div class="subscribe-body">
+    <div class="form-section">
       <div class="form-grid">
         <div class="form-field">
           <label>Choisissez votre mode de paiement *</label>
@@ -1369,7 +1407,7 @@ body {
         </div>
       </div>
       <div class="form-actions">
-        <button class="btn-form secondary" onclick="prevStep('paiement')">← Retour</button>
+        <button class="btn-form secondary" onclick="goTo('s-subscribe-logement')">← Retour</button>
         <button class="btn-form primary" onclick="submitSubscribe()">Finaliser la souscription →</button>
       </div>
     </div>
@@ -1715,28 +1753,16 @@ let selectedPlan = null;
 
 // Fonction pour initialiser le formulaire de souscription
 function initSubscribeForm() {
-  // Vérifier quelles sections doivent être affichées en fonction des réponses
-  const hasSante = answers['sante'] && answers['sante'].yes;
-  const hasVehicule = answers['vehicule'] && answers['vehicule'].yes;
-  const hasLogement = answers['logement'] && answers['logement'].yes;
-  
-  // Afficher/masquer les sections en conséquence
-  document.getElementById('section-sante').style.display = hasSante ? 'block' : 'none';
-  document.getElementById('section-conducteur').style.display = hasVehicule ? 'block' : 'none';
-  document.getElementById('section-logement').style.display = hasLogement ? 'block' : 'none';
-  
-  // Afficher la première section
-  document.getElementById('section-general').style.display = 'block';
-  document.getElementById('section-paiement').style.display = 'none';
-  
   // Réinitialiser le formulaire
   resetForm();
+  // Aller à la première étape (informations générales)
+  goTo('s-subscribe-general');
 }
 
 // Fonction pour réinitialiser le formulaire
 function resetForm() {
   // Réinitialiser tous les champs
-  const inputs = document.querySelectorAll('#s-subscribe input, #s-subscribe select, #s-subscribe textarea');
+  const inputs = document.querySelectorAll('[id^="s-subscribe"] input, [id^="s-subscribe"] select, [id^="s-subscribe"] textarea');
   inputs.forEach(input => {
     if (input.type === 'radio' || input.type === 'checkbox') {
       input.checked = false;
@@ -1756,94 +1782,13 @@ function resetForm() {
   document.getElementById('antecedentsDetailsField').style.display = 'none';
 }
 
-// Fonction pour passer à l'étape suivante
-function nextStep(currentSection) {
-  // Valider les champs requis de la section actuelle
-  if (!validateSection(currentSection)) {
-    return;
-  }
-  
-  // Masquer la section actuelle
-  document.getElementById(`section-${currentSection}`).style.display = 'none';
-  
-  // Déterminer la prochaine section
-  const hasSante = answers['sante'] && answers['sante'].yes;
-  const hasVehicule = answers['vehicule'] && answers['vehicule'].yes;
-  const hasLogement = answers['logement'] && answers['logement'].yes;
-  
-  let nextSection = '';
-  
-  switch(currentSection) {
-    case 'general':
-      if (hasSante) nextSection = 'sante';
-      else if (hasVehicule) nextSection = 'conducteur';
-      else if (hasLogement) nextSection = 'logement';
-      else nextSection = 'paiement';
-      break;
-    case 'sante':
-      if (hasVehicule) nextSection = 'conducteur';
-      else if (hasLogement) nextSection = 'logement';
-      else nextSection = 'paiement';
-      break;
-    case 'conducteur':
-      if (hasLogement) nextSection = 'logement';
-      else nextSection = 'paiement';
-      break;
-    case 'logement':
-      nextSection = 'paiement';
-      break;
-  }
-  
-  if (nextSection) {
-    document.getElementById(`section-${nextSection}`).style.display = 'block';
-  }
-}
-
-// Fonction pour revenir à l'étape précédente
-function prevStep(currentSection) {
-  // Masquer la section actuelle
-  document.getElementById(`section-${currentSection}`).style.display = 'none';
-  
-  // Déterminer la section précédente
-  const hasSante = answers['sante'] && answers['sante'].yes;
-  const hasVehicule = answers['vehicule'] && answers['vehicule'].yes;
-  const hasLogement = answers['logement'] && answers['logement'].yes;
-  
-  let prevSection = '';
-  
-  switch(currentSection) {
-    case 'sante':
-      prevSection = 'general';
-      break;
-    case 'conducteur':
-      if (hasSante) prevSection = 'sante';
-      else prevSection = 'general';
-      break;
-    case 'logement':
-      if (hasVehicule) prevSection = 'conducteur';
-      else if (hasSante) prevSection = 'sante';
-      else prevSection = 'general';
-      break;
-    case 'paiement':
-      if (hasLogement) prevSection = 'logement';
-      else if (hasVehicule) prevSection = 'conducteur';
-      else if (hasSante) prevSection = 'sante';
-      else prevSection = 'general';
-      break;
-  }
-  
-  if (prevSection) {
-    document.getElementById(`section-${prevSection}`).style.display = 'block';
-  }
-}
-
-// Fonction pour valider une section
-function validateSection(section) {
+// Fonction pour valider une section avant de passer à la suivante
+function validateCurrentScreen(screenId) {
   let isValid = true;
-  const sectionEl = document.getElementById(`section-${section}`);
+  const screenEl = document.getElementById(screenId);
   
-  // Récupérer tous les champs requis dans la section
-  const requiredInputs = sectionEl.querySelectorAll('input[required], select[required]');
+  // Récupérer tous les champs requis dans l'écran
+  const requiredInputs = screenEl.querySelectorAll('input[required], select[required]');
   
   requiredInputs.forEach(input => {
     if (!input.value || input.value === '') {
@@ -1875,10 +1820,58 @@ function toggleAntecedentsDetails() {
   }
 }
 
+// Fonctions de navigation entre les écrans de souscription
+function goToSubscribeSante() {
+  if (!validateCurrentScreen('s-subscribe-general')) return;
+  
+  // Vérifier si la section santé doit être affichée
+  const hasSante = answers['sante'] && answers['sante'].yes;
+  if (hasSante) {
+    goTo('s-subscribe-sante');
+  } else {
+    // Passer directement à la section suivante
+    goToSubscribeConducteur();
+  }
+}
+
+function goToSubscribeConducteur() {
+  // Si on vient de s-subscribe-sante, valider d'abord
+  const currentScreen = document.querySelector('.screen.active').id;
+  if (currentScreen === 's-subscribe-sante') {
+    if (!validateCurrentScreen('s-subscribe-sante')) return;
+  }
+  
+  // Vérifier si la section conducteur doit être affichée
+  const hasVehicule = answers['vehicule'] && answers['vehicule'].yes;
+  if (hasVehicule) {
+    goTo('s-subscribe-conducteur');
+  } else {
+    // Passer directement à la section suivante
+    goToSubscribeLogement();
+  }
+}
+
+function goToSubscribeLogement() {
+  // Si on vient de s-subscribe-conducteur, valider d'abord
+  const currentScreen = document.querySelector('.screen.active').id;
+  if (currentScreen === 's-subscribe-conducteur') {
+    if (!validateCurrentScreen('s-subscribe-conducteur')) return;
+  }
+  
+  // Vérifier si la section logement doit être affichée
+  const hasLogement = answers['logement'] && answers['logement'].yes;
+  if (hasLogement) {
+    goTo('s-subscribe-logement');
+  } else {
+    // Passer directement à la section paiement
+    goTo('s-subscribe-paiement');
+  }
+}
+
 // Fonction pour soumettre le formulaire de souscription
 function submitSubscribe() {
-  // Valider la section de paiement
-  if (!validateSection('paiement')) {
+  // Valider l'écran de paiement
+  if (!validateCurrentScreen('s-subscribe-paiement')) {
     return;
   }
   
