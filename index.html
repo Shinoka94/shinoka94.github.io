@@ -921,7 +921,7 @@ body {
     <div class="hero-logo">CNP Assurances</div>
     <div class="hero-badge">🎓 Fait pour les étudiants</div>
     <h1>L'assurance qui s'adapte<br>à <em>votre vie <span style="color: #7DD3FC;">étudiante</span></em></h1>
-    <p>Un questionnaire de 2 minutes. Une assurance taillée pour vous. Dès 12 €/mois.</p>
+    <p>Une assurance taillée pour vous.</p>
     <div style="display: flex; gap: 16px; justify-content: center; margin-bottom: 28px;">
       <div class="hero-price">
         <div class="from">À partir de</div>
@@ -929,14 +929,14 @@ body {
         <div class="per">par mois</div>
       </div>
       <div class="hero-price">
-        <div class="from">Jusqu'à</div>
+        <div class="from">Maximum</div>
         <div class="amount">30 <span style="font-size:20px">€</span></div>
         <div class="per">par mois</div>
       </div>
     </div>
     <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-      <button class="btn-hero" onclick="goTo('s-auth')">Connexion</button>
-      <button class="btn-hero" onclick="goTo('s-swipe'); initSwipe()" style="background: transparent; color: white; border: 2px solid white;">Pas encore inscrit ?</button>
+      <button class="btn-hero" onclick="goTo('s-auth')">Me connecter</button>
+      <button class="btn-primary" onclick="document.getElementById('how-section').scrollIntoView({behavior: 'smooth'})">Inscription</button>
     </div>
   </div>
 
@@ -982,8 +982,9 @@ body {
     <div class="stat-item"><div class="s-num">30 €</div><div class="s-lbl">maximum / mois</div></div>
   </div>
 
-  <div class="section-title" style="padding-top:28px">Comment ton assurance t'accompagne ?</div>
-  <div class="section-h2">Une inscription simplifiée</div>
+  <div id="how-section"></div>
+  <div class="section-title" style="padding-top:28px">Comment votre assurance vous accompagne ?</div>
+  <div class="section-h2">Une inscription à vos côtés</div>
 
   <div class="how-list">
     <div class="how-item">
@@ -1010,7 +1011,7 @@ body {
   </div>
 
   <div class="landing-cta">
-    <button class="btn-primary" onclick="goTo('s-swipe'); initSwipe()">Commençons maintenant</button>
+    <button class="btn-primary" onclick="goTo('s-swipe'); initSwipe()">Commençons dès maintenant</button>
   </div>
 </div>
 
