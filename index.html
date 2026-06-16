@@ -42,6 +42,457 @@ body {
 .screen.active { display: flex; }
 
 /* ═══════════════════════════════════════
+   ── SCREEN: CHOICE ──
+═══════════════════════════════════════ */
+#s-choice {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+  color: white;
+}
+
+.choice-container {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 40px 30px;
+  max-width: 480px;
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.choice-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.choice-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.choice-subtitle {
+  font-size: 15px;
+  opacity: 0.85;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.choice-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.choice-btn {
+  padding: 16px 24px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.choice-btn.primary {
+  background: white;
+  color: var(--navy);
+}
+
+.choice-btn.secondary {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.choice-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* ═══════════════════════════════════════
+   ── SCREEN: SUBSCRIBE FORM ──
+═══════════════════════════════════════ */
+#s-subscribe {
+  background: var(--bg);
+  overflow-y: auto;
+}
+
+.subscribe-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  padding: 28px 24px 60px;
+  text-align: center;
+  color: white;
+  border-radius: 0 0 24px 24px;
+  margin-bottom: -24px;
+}
+
+.subscribe-header .sh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 30px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.subscribe-header h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.subscribe-header p {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.subscribe-body {
+  padding: 16px 24px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.form-section {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
+
+.form-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.form-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 11px;
+  font-size: 15px;
+  font-family: inherit;
+  background: white;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: var(--sky);
+  box-shadow: 0 0 0 3px rgba(0,119,200,0.12);
+}
+
+.form-field textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn-form {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn-form.primary {
+  background: linear-gradient(135deg, var(--navy), var(--sky));
+  color: white;
+}
+
+.btn-form.secondary {
+  background: var(--ice);
+  color: var(--blue);
+  border: 1px solid rgba(0,85,165,0.2);
+}
+
+.btn-form:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Payment options */
+.payment-options {
+  display: grid;
+  gap: 12px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.payment-option:hover {
+  border-color: var(--sky);
+  background: var(--ice);
+}
+
+.payment-option.selected {
+  border-color: var(--blue);
+  background: #D6E8F8;
+}
+
+.payment-option input {
+  display: none;
+}
+
+.payment-option .po-icon {
+  font-size: 24px;
+}
+
+.payment-option .po-label {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.payment-option .po-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-option.selected .po-radio {
+  border-color: var(--blue);
+  background: var(--blue);
+}
+
+.payment-option.selected .po-radio::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+}
+
+/* ═══════════════════════════════════════
+   ── SCREEN: CONTACT FORM ──
+═══════════════════════════════════════ */
+#s-contact {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+  color: white;
+  min-height: 100vh;
+}
+
+.contact-container {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 32px 28px;
+  max-width: 420px;
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.contact-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.contact-subtitle {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 24px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+.contact-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 5px;
+}
+
+.contact-field input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  border-radius: 11px;
+  font-size: 15px;
+  font-family: inherit;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contact-field input::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+.contact-field input:focus {
+  border-color: white;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.2);
+}
+
+.contact-btn {
+  padding: 16px;
+  background: white;
+  color: var(--navy);
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.contact-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* ═══════════════════════════════════════
+   ── SCREEN: CONFIRMATION ──
+═══════════════════════════════════════ */
+#s-confirmation {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+  color: white;
+}
+
+.confirmation-container {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 40px 30px;
+  max-width: 420px;
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.confirmation-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 40px;
+}
+
+.confirmation-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.confirmation-text {
+  font-size: 15px;
+  opacity: 0.85;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.confirmation-btn {
+  padding: 16px 24px;
+  background: white;
+  color: var(--navy);
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.confirmation-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* ═══════════════════════════════════════
    ── SCREEN: LANDING ──
 ═══════════════════════════════════════ */
 #s-landing {
@@ -690,6 +1141,280 @@ body {
   </div>
 </div>
 
+<!-- ══════════ CHOICE ══════════ -->
+<div class="screen" id="s-choice">
+  <div class="choice-container">
+    <div class="choice-icon">🤝</div>
+    <div class="choice-title">Prêt à souscrire ?</div>
+    <div class="choice-subtitle">Choisissez comment vous souhaitez procéder pour finaliser votre mutuelle personnalisée.</div>
+    <div class="choice-buttons">
+      <button class="choice-btn primary" onclick="goTo('s-subscribe'); initSubscribeForm()">
+        <span>📝</span> Je souhaite souscrire dès maintenant
+      </button>
+      <button class="choice-btn secondary" onclick="goTo('s-contact')">
+        <span>📞</span> Je souhaite être recontacté
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SUBSCRIBE FORM ═════════ -->
+<div class="screen" id="s-subscribe">
+  <div class="subscribe-header">
+    <div class="sh-badge">🔒 Souscription sécurisée</div>
+    <h2>Finalisez votre inscription</h2>
+    <p>Remplissez les informations nécessaires pour activer votre couverture.</p>
+  </div>
+  
+  <div class="subscribe-body">
+    <!-- Step 1: Informations générales -->
+    <div class="form-section" id="section-general">
+      <div class="form-section-title">1. Informations générales</div>
+      <div class="form-grid">
+        <div class="form-row">
+          <div class="form-field">
+            <label>Prénom *</label>
+            <input type="text" id="firstName" placeholder="Votre prénom" required>
+          </div>
+          <div class="form-field">
+            <label>Nom *</label>
+            <input type="text" id="lastName" placeholder="Votre nom" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Date de Naissance *</label>
+            <input type="date" id="birthDate" required>
+          </div>
+          <div class="form-field">
+            <label>Numéro de téléphone *</label>
+            <input type="tel" id="phone" placeholder="06 12 34 56 78" required>
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Adresse e-mail *</label>
+          <input type="email" id="email" placeholder="votre@email.com" required>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-form primary" onclick="nextStep('general')">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Informations santé (si mutuelle santé demandée) -->
+    <div class="form-section" id="section-sante" style="display:none">
+      <div class="form-section-title">2. Informations santé</div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Numéro de sécurité sociale *</label>
+          <input type="text" id="securiteSociale" placeholder="1 23 45 67 890 123" required>
+        </div>
+        <div class="form-field">
+          <label>Photo de Carte vitale</label>
+          <input type="file" id="carteVitale" accept="image/*">
+        </div>
+        <div class="form-field">
+          <label>Combien d'enfants à charge avez-vous ?</label>
+          <select id="enfantsCharge">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4+">4 ou plus</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-form secondary" onclick="prevStep('sante')">← Retour</button>
+        <button class="btn-form primary" onclick="nextStep('sante')">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Informations conducteur (si assurance auto demandée) -->
+    <div class="form-section" id="section-conducteur" style="display:none">
+      <div class="form-section-title">3. Informations conducteur</div>
+      <div class="form-grid">
+        <div class="form-row">
+          <div class="form-field">
+            <label>Numéro du permis de conduire *</label>
+            <input type="text" id="permisConduire" placeholder="1234567890" required>
+          </div>
+          <div class="form-field">
+            <label>Numéro d'immatriculation *</label>
+            <input type="text" id="immatriculation" placeholder="AB-123-CD" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Marque et modèle de voiture *</label>
+            <input type="text" id="marqueModele" placeholder="ex: Renault Clio" required>
+          </div>
+          <div class="form-field">
+            <label>Puissance fiscale *</label>
+            <input type="text" id="puissanceFiscale" placeholder="ex: 6 CV" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Kilométrage annuel estimé *</label>
+            <input type="text" id="kmAnnuels" placeholder="ex: 15000 km" required>
+          </div>
+          <div class="form-field">
+            <label>Nom de l'ancienne assurance (facultatif)</label>
+            <input type="text" id="ancienneAssurance" placeholder="ex: AXA, Allianz">
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Avez-vous des antécédents ? *</label>
+          <select id="antecedents" onchange="toggleAntecedentsDetails()">
+            <option value="non">Non</option>
+            <option value="oui">Oui</option>
+          </select>
+        </div>
+        <div class="form-field" id="antecedentsDetailsField" style="display:none">
+          <label>Si oui, expliquez-les *</label>
+          <textarea id="antecedentsDetails" placeholder="Décrivez vos antécédents..."></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-form secondary" onclick="prevStep('conducteur')">← Retour</button>
+        <button class="btn-form primary" onclick="nextStep('conducteur')">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Informations logement (si assurance habitation demandée) -->
+    <div class="form-section" id="section-logement" style="display:none">
+      <div class="form-section-title">4. Informations sur le logement</div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Adresse complète *</label>
+          <input type="text" id="adresseLogement" placeholder="123 Rue de Paris, 75000 Paris" required>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Type de logement *</label>
+            <select id="typeLogement" required>
+              <option value="">Sélectionnez...</option>
+              <option value="studio">Studio</option>
+              <option value="appartement">Appartement</option>
+              <option value="maison">Maison</option>
+              <option value="colocation">Colocation</option>
+              <option value="residence">Résidence universitaire</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Surface en m² *</label>
+            <input type="number" id="surface" placeholder="ex: 35" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Nombre de pièces *</label>
+            <input type="number" id="nombrePieces" placeholder="ex: 2" required>
+          </div>
+          <div class="form-field">
+            <label>Étage</label>
+            <input type="text" id="etage" placeholder="ex: 3ème étage">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Est-ce une colocation ? *</label>
+            <select id="estColocation">
+              <option value="non">Non</option>
+              <option value="oui">Oui</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Y a-t-il une alarme contre les intrusions ? *</label>
+            <select id="alarmeIntrusion">
+              <option value="non">Non</option>
+              <option value="oui">Oui</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-form secondary" onclick="prevStep('logement')">← Retour</button>
+        <button class="btn-form primary" onclick="nextStep('logement')">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Informations paiement -->
+    <div class="form-section" id="section-paiement" style="display:none">
+      <div class="form-section-title">5. Informations de paiement</div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Choisissez votre mode de paiement *</label>
+          <div class="payment-options">
+            <label class="payment-option selected" for="paiement-carte">
+              <input type="radio" id="paiement-carte" name="paiement" value="carte" checked>
+              <span class="po-icon">💳</span>
+              <span class="po-label">Paiement par Carte</span>
+              <span class="po-radio"></span>
+            </label>
+            <label class="payment-option" for="paiement-apple">
+              <input type="radio" id="paiement-apple" name="paiement" value="apple">
+              <span class="po-icon">🍎</span>
+              <span class="po-label">Apple Pay</span>
+              <span class="po-radio"></span>
+            </label>
+            <label class="payment-option" for="paiement-paypal">
+              <input type="radio" id="paiement-paypal" name="paiement" value="paypal">
+              <span class="po-icon">💰</span>
+              <span class="po-label">Paypal</span>
+              <span class="po-radio"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-form secondary" onclick="prevStep('paiement')">← Retour</button>
+        <button class="btn-form primary" onclick="submitSubscribe()">Finaliser la souscription →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CONTACT FORM ══════════ -->
+<div class="screen" id="s-contact">
+  <div class="contact-container">
+    <div class="contact-title">Nous vous recontactons</div>
+    <div class="contact-subtitle">Remplissez ce formulaire et un conseiller CNP vous contactera dans les plus brefs délais.</div>
+    <form class="contact-form" onsubmit="submitContact(event)">
+      <div class="contact-field">
+        <label>Prénom *</label>
+        <input type="text" id="contactFirstName" placeholder="Votre prénom" required>
+      </div>
+      <div class="contact-field">
+        <label>Nom *</label>
+        <input type="text" id="contactLastName" placeholder="Votre nom" required>
+      </div>
+      <div class="contact-field">
+        <label>Adresse e-mail *</label>
+        <input type="email" id="contactEmail" placeholder="votre@email.com" required>
+      </div>
+      <div class="contact-field">
+        <label>Numéro de téléphone *</label>
+        <input type="tel" id="contactPhone" placeholder="06 12 34 56 78" required>
+      </div>
+      <button type="submit" class="contact-btn">Contactez-moi</button>
+    </form>
+  </div>
+</div>
+
+<!-- ══════════ CONFIRMATION ══════════ -->
+<div class="screen" id="s-confirmation">
+  <div class="confirmation-container">
+    <div class="confirmation-icon">✅</div>
+    <div class="confirmation-title">Demande reçue !</div>
+    <div class="confirmation-text">
+      Merci pour votre demande. Un conseiller CNP vous recontactera sous 24 à 48 heures pour finaliser votre souscription.
+    </div>
+    <button class="confirmation-btn" onclick="goTo('s-landing')">Retour à l'accueil</button>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -979,8 +1704,269 @@ function buildResult() {
 }
 
 function subscribe(plan) {
-  alert(`✅ Super ! Vous avez choisi l'offre "${plan}".\nUn conseiller CNP vous contactera pour finaliser votre souscription.`);
+  // Stocker la sélection de l'offre
+  selectedPlan = plan;
+  // Aller à la page de choix
+  goTo('s-choice');
 }
+
+// Variable pour stocker l'offre sélectionnée
+let selectedPlan = null;
+
+// Fonction pour initialiser le formulaire de souscription
+function initSubscribeForm() {
+  // Vérifier quelles sections doivent être affichées en fonction des réponses
+  const hasSante = answers['sante'] && answers['sante'].yes;
+  const hasVehicule = answers['vehicule'] && answers['vehicule'].yes;
+  const hasLogement = answers['logement'] && answers['logement'].yes;
+  
+  // Afficher/masquer les sections en conséquence
+  document.getElementById('section-sante').style.display = hasSante ? 'block' : 'none';
+  document.getElementById('section-conducteur').style.display = hasVehicule ? 'block' : 'none';
+  document.getElementById('section-logement').style.display = hasLogement ? 'block' : 'none';
+  
+  // Afficher la première section
+  document.getElementById('section-general').style.display = 'block';
+  document.getElementById('section-paiement').style.display = 'none';
+  
+  // Réinitialiser le formulaire
+  resetForm();
+}
+
+// Fonction pour réinitialiser le formulaire
+function resetForm() {
+  // Réinitialiser tous les champs
+  const inputs = document.querySelectorAll('#s-subscribe input, #s-subscribe select, #s-subscribe textarea');
+  inputs.forEach(input => {
+    if (input.type === 'radio' || input.type === 'checkbox') {
+      input.checked = false;
+    } else {
+      input.value = '';
+    }
+  });
+  
+  // Réinitialiser les options de paiement
+  document.getElementById('paiement-carte').checked = true;
+  document.querySelectorAll('.payment-option').forEach(opt => {
+    opt.classList.remove('selected');
+  });
+  document.getElementById('paiement-carte').parentElement.classList.add('selected');
+  
+  // Masquer les détails des antécédents
+  document.getElementById('antecedentsDetailsField').style.display = 'none';
+}
+
+// Fonction pour passer à l'étape suivante
+function nextStep(currentSection) {
+  // Valider les champs requis de la section actuelle
+  if (!validateSection(currentSection)) {
+    return;
+  }
+  
+  // Masquer la section actuelle
+  document.getElementById(`section-${currentSection}`).style.display = 'none';
+  
+  // Déterminer la prochaine section
+  const hasSante = answers['sante'] && answers['sante'].yes;
+  const hasVehicule = answers['vehicule'] && answers['vehicule'].yes;
+  const hasLogement = answers['logement'] && answers['logement'].yes;
+  
+  let nextSection = '';
+  
+  switch(currentSection) {
+    case 'general':
+      if (hasSante) nextSection = 'sante';
+      else if (hasVehicule) nextSection = 'conducteur';
+      else if (hasLogement) nextSection = 'logement';
+      else nextSection = 'paiement';
+      break;
+    case 'sante':
+      if (hasVehicule) nextSection = 'conducteur';
+      else if (hasLogement) nextSection = 'logement';
+      else nextSection = 'paiement';
+      break;
+    case 'conducteur':
+      if (hasLogement) nextSection = 'logement';
+      else nextSection = 'paiement';
+      break;
+    case 'logement':
+      nextSection = 'paiement';
+      break;
+  }
+  
+  if (nextSection) {
+    document.getElementById(`section-${nextSection}`).style.display = 'block';
+  }
+}
+
+// Fonction pour revenir à l'étape précédente
+function prevStep(currentSection) {
+  // Masquer la section actuelle
+  document.getElementById(`section-${currentSection}`).style.display = 'none';
+  
+  // Déterminer la section précédente
+  const hasSante = answers['sante'] && answers['sante'].yes;
+  const hasVehicule = answers['vehicule'] && answers['vehicule'].yes;
+  const hasLogement = answers['logement'] && answers['logement'].yes;
+  
+  let prevSection = '';
+  
+  switch(currentSection) {
+    case 'sante':
+      prevSection = 'general';
+      break;
+    case 'conducteur':
+      if (hasSante) prevSection = 'sante';
+      else prevSection = 'general';
+      break;
+    case 'logement':
+      if (hasVehicule) prevSection = 'conducteur';
+      else if (hasSante) prevSection = 'sante';
+      else prevSection = 'general';
+      break;
+    case 'paiement':
+      if (hasLogement) prevSection = 'logement';
+      else if (hasVehicule) prevSection = 'conducteur';
+      else if (hasSante) prevSection = 'sante';
+      else prevSection = 'general';
+      break;
+  }
+  
+  if (prevSection) {
+    document.getElementById(`section-${prevSection}`).style.display = 'block';
+  }
+}
+
+// Fonction pour valider une section
+function validateSection(section) {
+  let isValid = true;
+  const sectionEl = document.getElementById(`section-${section}`);
+  
+  // Récupérer tous les champs requis dans la section
+  const requiredInputs = sectionEl.querySelectorAll('input[required], select[required]');
+  
+  requiredInputs.forEach(input => {
+    if (!input.value || input.value === '') {
+      isValid = false;
+      // Ajouter une bordure rouge pour indiquer l'erreur
+      input.style.borderColor = 'var(--red)';
+    } else {
+      // Réinitialiser la bordure
+      input.style.borderColor = 'var(--border)';
+    }
+  });
+  
+  if (!isValid) {
+    showToast('Veuillez remplir tous les champs obligatoires', 'no');
+  }
+  
+  return isValid;
+}
+
+// Fonction pour afficher/masquer les détails des antécédents
+function toggleAntecedentsDetails() {
+  const antecedents = document.getElementById('antecedents');
+  const detailsField = document.getElementById('antecedentsDetailsField');
+  
+  if (antecedents.value === 'oui') {
+    detailsField.style.display = 'block';
+  } else {
+    detailsField.style.display = 'none';
+  }
+}
+
+// Fonction pour soumettre le formulaire de souscription
+function submitSubscribe() {
+  // Valider la section de paiement
+  if (!validateSection('paiement')) {
+    return;
+  }
+  
+  // Récupérer toutes les données du formulaire
+  const formData = {
+    general: {
+      firstName: document.getElementById('firstName').value,
+      lastName: document.getElementById('lastName').value,
+      birthDate: document.getElementById('birthDate').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email').value
+    },
+    sante: {
+      securiteSociale: document.getElementById('securiteSociale').value,
+      carteVitale: document.getElementById('carteVitale').value,
+      enfantsCharge: document.getElementById('enfantsCharge').value
+    },
+    conducteur: {
+      permisConduire: document.getElementById('permisConduire').value,
+      immatriculation: document.getElementById('immatriculation').value,
+      marqueModele: document.getElementById('marqueModele').value,
+      puissanceFiscale: document.getElementById('puissanceFiscale').value,
+      kmAnnuels: document.getElementById('kmAnnuels').value,
+      ancienneAssurance: document.getElementById('ancienneAssurance').value,
+      antecedents: document.getElementById('antecedents').value,
+      antecedentsDetails: document.getElementById('antecedentsDetails').value
+    },
+    logement: {
+      adresseLogement: document.getElementById('adresseLogement').value,
+      typeLogement: document.getElementById('typeLogement').value,
+      surface: document.getElementById('surface').value,
+      nombrePieces: document.getElementById('nombrePieces').value,
+      etage: document.getElementById('etage').value,
+      estColocation: document.getElementById('estColocation').value,
+      alarmeIntrusion: document.getElementById('alarmeIntrusion').value
+    },
+    paiement: document.querySelector('input[name="paiement"]:checked').value,
+    plan: selectedPlan
+  };
+  
+  // Afficher un message de confirmation
+  alert(`✅ Félicitations ! Votre souscription pour l'offre "${selectedPlan}" a été enregistrée avec succès.\n\nUn email de confirmation vous sera envoyé à l'adresse : ${formData.general.email}\n\nVotre couverture sera active sous 24 à 48 heures.`);
+  
+  // Réinitialiser et retourner à l'accueil
+  resetForm();
+  goTo('s-landing');
+}
+
+// Fonction pour soumettre le formulaire de contact
+function submitContact(event) {
+  event.preventDefault();
+  
+  // Récupérer les données du formulaire
+  const contactData = {
+    firstName: document.getElementById('contactFirstName').value,
+    lastName: document.getElementById('contactLastName').value,
+    email: document.getElementById('contactEmail').value,
+    phone: document.getElementById('contactPhone').value,
+    plan: selectedPlan
+  };
+  
+  // Afficher la page de confirmation
+  goTo('s-confirmation');
+  
+  // Réinitialiser le formulaire
+  document.getElementById('contactFirstName').value = '';
+  document.getElementById('contactLastName').value = '';
+  document.getElementById('contactEmail').value = '';
+  document.getElementById('contactPhone').value = '';
+}
+
+// Gestion des options de paiement
+function initPaymentOptions() {
+  document.querySelectorAll('.payment-option').forEach(option => {
+    option.addEventListener('click', function() {
+      document.querySelectorAll('.payment-option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+      this.classList.add('selected');
+      this.querySelector('input').checked = true;
+    });
+  });
+}
+
+// Appeler l'initialisation au chargement
+window.addEventListener('DOMContentLoaded', function() {
+  initPaymentOptions();
+});
 
 /* ══════════════════════════════════════════
    DRAG SWIPE
