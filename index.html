@@ -338,6 +338,7 @@ body {
 
 /* action buttons */
 .action-row { display: flex; gap: 24px; }
+.back-row { display: flex; justify-content: center; margin-top: 16px; }
 .act-btn {
   width: 66px; height: 66px; border-radius: 50%; border: none;
   display: flex; align-items: center; justify-content: center;
@@ -348,6 +349,7 @@ body {
 .act-btn:active { transform: scale(.95); }
 .act-no  { background: white; color: var(--red);   box-shadow: 0 4px 16px rgba(220,53,69,.22); }
 .act-yes { background: white; color: var(--green); box-shadow: 0 4px 16px rgba(0,163,108,.22); }
+.act-back { background: white; color: var(--muted); box-shadow: 0 4px 16px rgba(107,126,154,.22); }
 
 /* ═══════════════════════════════════════
    ── SCREEN: RESULTS ──
@@ -617,6 +619,10 @@ body {
       <button class="act-btn act-no"  onclick="answer(false)" title="Non">✕</button>
       <button class="act-btn act-yes" onclick="answer(true)"  title="Oui">♥</button>
     </div>
+
+    <div class="back-row">
+      <button class="act-btn act-back" onclick="goBack()" title="Retour en arrière">←</button>
+    </div>
   </div>
 </div>
 
@@ -829,6 +835,7 @@ function buildQueue() {
 function initSwipe() {
   answers = {};
   counterVal = 1;
+  historyStack = [];
   buildQueue();
   qIdx = 0;
   renderCard();
@@ -880,12 +887,36 @@ function answer(yes) {
     queue.splice(qIdx + 1, 0, ...subs);
   }
 
+  // Save current state for goBack
+  historyStack.push({
+    qIdx: qIdx,
+    queue: [...queue],
+    answers: {...answers}
+  });
+
   showToast(yes ? '✓ Pris en compte !' : '✗ Ignoré', yes ? 'yes' : 'no');
   flyCard(yes ? 'right' : 'left', () => {
     qIdx++;
     if (qIdx >= queue.length) { buildResult(); goTo('s-result'); }
     else { renderCard(); }
   });
+}
+
+// History stack for goBack functionality
+let historyStack = [];
+
+function goBack() {
+  if (historyStack.length === 0 || qIdx === 0) return;
+
+  const previousState = historyStack.pop();
+  
+  // Restore previous state
+  qIdx = previousState.qIdx;
+  queue = [...previousState.queue];
+  answers = {...previousState.answers};
+  
+  // Re-render the card
+  renderCard();
 }
 
 function flyCard(dir, cb) {
