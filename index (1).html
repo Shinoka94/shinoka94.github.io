@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>CNP Étudiant – Assurance personnalisée</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root {
+  --navy:   #002B6B;
+  --blue:   #0055A5;
+  --sky:    #0077C8;
+  --ice:    #E6F1FA;
+  --green:  #00A36C;
+  --red:    #DC3545;
+  --gold:   #F4A922;
+  --white:  #FFFFFF;
+  --bg:     #F2F5FA;
+  --border: #D4DFF0;
+  --text:   #0D1B2A;
+  --muted:  #6B7E9A;
+  --r-card: 20px;
+  --shadow: 0 8px 32px rgba(0,43,107,.13);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════
+   SCREENS
+═══════════════════════════════════════ */
+.screen { display: none; min-height: 100vh; flex-direction: column; }
+.screen.active { display: flex; }
+
+/* ═══════════════════════════════════════
+   ── SCREEN: LANDING ──
+═══════════════════════════════════════ */
+#s-landing {
+  background: var(--white);
+  overflow-y: auto;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(150deg, var(--navy) 0%, var(--blue) 55%, var(--sky) 100%);
+  padding: 52px 24px 64px;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 30px; padding: 6px 14px;
+  font-size: 12px; font-weight: 600; letter-spacing: .5px;
+  margin-bottom: 20px;
+}
+.hero-logo {
+  font-size: 13px; font-weight: 800; letter-spacing: 3px;
+  text-transform: uppercase; opacity: .7; margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: 30px; font-weight: 900; line-height: 1.2;
+  margin-bottom: 12px;
+}
+.hero h1 em { font-style: normal; color: #7DD3FC; }
+.hero p {
+  font-size: 15px; opacity: .8; line-height: 1.6;
+  max-width: 320px; margin: 0 auto 28px;
+}
+.hero-price {
+  display: inline-block;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 14px; padding: 12px 24px;
+  margin-bottom: 28px;
+}
+.hero-price .from { font-size: 12px; opacity: .7; }
+.hero-price .amount { font-size: 38px; font-weight: 900; line-height: 1; }
+.hero-price .per { font-size: 13px; opacity: .7; }
+.btn-hero {
+  display: block; width: 100%;
+  background: white; color: var(--navy);
+  border: none; border-radius: 14px;
+  padding: 16px; font-size: 16px; font-weight: 800;
+  font-family: inherit; cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0,0,0,.2);
+  transition: transform .15s, box-shadow .15s;
+}
+.btn-hero:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,0,0,.25); }
+.btn-login-link {
+  display: block; text-align: center;
+  color: rgba(255,255,255,.7); font-size: 13px; margin-top: 14px;
+  cursor: pointer; text-decoration: underline;
+}
+
+/* AVANTAGES SECTION */
+.section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--sky);
+  padding: 32px 24px 0;
+}
+.section-h2 {
+  font-size: 22px; font-weight: 800; color: var(--navy);
+  padding: 6px 24px 20px; line-height: 1.3;
+}
+
+/* AVANTAGE CARDS SCROLL */
+.avantages-scroll {
+  display: flex; gap: 14px;
+  overflow-x: auto; padding: 0 24px 24px;
+  scrollbar-width: none;
+}
+.avantages-scroll::-webkit-scrollbar { display: none; }
+
+.av-card {
+  flex-shrink: 0; width: 200px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-card);
+  padding: 20px 16px;
+  transition: border-color .2s;
+}
+.av-card:hover { border-color: var(--sky); }
+.av-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: var(--ice); display: flex; align-items: center;
+  justify-content: center; font-size: 24px; margin-bottom: 12px;
+}
+.av-card h3 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.av-card p  { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* STATS STRIP */
+.stats-strip {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 0 0 8px;
+}
+.stat-item {
+  background: white; padding: 18px 10px; text-align: center;
+}
+.stat-item .s-num { font-size: 22px; font-weight: 900; color: var(--navy); }
+.stat-item .s-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* HOW SECTION */
+.how-list { padding: 0 24px 32px; display: flex; flex-direction: column; gap: 16px; }
+.how-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: white; border-radius: 14px; padding: 16px;
+  border: 1px solid var(--border);
+}
+.how-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--navy); color: white;
+  font-size: 13px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.how-item h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.how-item p  { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* CTA BOTTOM */
+.landing-cta {
+  padding: 8px 24px 40px;
+}
+.btn-primary {
+  display: block; width: 100%;
+  background: linear-gradient(135deg, var(--navy), var(--sky));
+  color: white; border: none; border-radius: 14px;
+  padding: 16px; font-size: 15px; font-weight: 800;
+  font-family: inherit; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,85,165,.35);
+  transition: transform .15s, box-shadow .15s;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(0,85,165,.45); }
+.btn-primary:active { transform: translateY(0); }
+
+/* ═══════════════════════════════════════
+   ── SCREEN: AUTH ──
+═══════════════════════════════════════ */
+#s-auth {
+  background: white;
+  overflow-y: auto;
+}
+.auth-top {
+  background: linear-gradient(135deg, var(--navy), var(--blue));
+  padding: 40px 24px 50px; text-align: center; color: white;
+}
+.auth-top .logo { font-size: 20px; font-weight: 900; letter-spacing: 1px; margin-bottom: 8px; }
+.auth-top .logo span { color: #7DD3FC; }
+.auth-top p { font-size: 14px; opacity: .75; }
+
+.auth-body { padding: 28px 24px; flex: 1; }
+.tab-row {
+  display: flex; background: var(--bg); border-radius: 12px; padding: 4px; margin-bottom: 24px;
+}
+.tab-btn {
+  flex: 1; padding: 11px; border: none; background: none;
+  font-size: 14px; font-weight: 600; color: var(--muted);
+  border-radius: 9px; cursor: pointer; transition: all .2s; font-family: inherit;
+}
+.tab-btn.active { background: var(--navy); color: white; box-shadow: 0 2px 10px rgba(0,43,107,.3); }
+
+.form-panel { display: none; flex-direction: column; gap: 14px; }
+.form-panel.active { display: flex; }
+.field label { display: block; font-size: 12px; font-weight: 600; color: var(--navy); margin-bottom: 5px; }
+.field input {
+  width: 100%; padding: 13px 14px;
+  border: 1.5px solid var(--border); border-radius: 11px;
+  font-size: 15px; font-family: inherit; background: white;
+  outline: none; transition: border-color .2s, box-shadow .2s;
+}
+.field input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(0,119,200,.12); }
+.form-note { font-size: 12px; color: var(--muted); text-align: center; }
+
+/* ═══════════════════════════════════════
+   ── SCREEN: SWIPE ──
+═══════════════════════════════════════ */
+#s-swipe { background: var(--bg); }
+
+.swipe-topbar {
+  background: white; border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.swipe-topbar .logo-s { font-size: 15px; font-weight: 900; color: var(--navy); }
+.swipe-topbar .logo-s span { color: var(--sky); }
+.prog-wrap { flex: 1; margin: 0 16px; }
+.prog-bg { height: 5px; background: var(--border); border-radius: 10px; overflow: hidden; }
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--navy), var(--sky));
+  border-radius: 10px;
+  transition: width .4s ease;
+}
+.prog-num { font-size: 11px; color: var(--muted); text-align: right; margin-top: 3px; }
+
+.swipe-body {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 24px 20px; gap: 18px;
+}
+
+/* Category tag */
+.cat-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--ice); color: var(--blue);
+  font-size: 12px; font-weight: 700; letter-spacing: .5px;
+  border-radius: 20px; padding: 5px 12px;
+  border: 1px solid rgba(0,85,165,.15);
+}
+
+/* Card stack */
+.card-stack { position: relative; width: 100%; max-width: 360px; height: 320px; }
+
+.peek-card {
+  position: absolute; inset: 0;
+  background: white; border-radius: 22px;
+  box-shadow: 0 4px 16px rgba(0,43,107,.08);
+  transform: scale(.94) translateY(10px);
+}
+
+.main-card {
+  position: absolute; inset: 0;
+  background: white; border-radius: 22px;
+  box-shadow: var(--shadow);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 28px 24px;
+  cursor: grab; user-select: none;
+  will-change: transform;
+  transition: transform .08s ease;
+}
+.main-card.dragging { cursor: grabbing; transition: none; }
+.main-card.fly-left  { animation: flyLeft .35s ease-in forwards; }
+.main-card.fly-right { animation: flyRight .35s ease-in forwards; }
+
+@keyframes flyLeft  { to { transform: translateX(-150%) rotate(-22deg); opacity: 0; } }
+@keyframes flyRight { to { transform: translateX(150%) rotate(22deg); opacity: 0; } }
+
+.ov-yes, .ov-no {
+  position: absolute; top: 18px;
+  padding: 6px 14px; border-radius: 8px;
+  font-size: 16px; font-weight: 900; letter-spacing: 1px;
+  opacity: 0; pointer-events: none;
+}
+.ov-yes { left: 18px; color: var(--green); border: 3px solid var(--green); transform: rotate(-10deg); }
+.ov-no  { right: 18px; color: var(--red);   border: 3px solid var(--red);   transform: rotate(10deg); }
+
+.card-emoji {
+  width: 78px; height: 78px; border-radius: 20px;
+  background: var(--ice); display: flex; align-items: center;
+  justify-content: center; font-size: 38px; margin-bottom: 18px;
+  flex-shrink: 0;
+}
+.card-q { font-size: 19px; font-weight: 800; color: var(--navy); text-align: center; line-height: 1.35; margin-bottom: 8px; }
+.card-d { font-size: 13px; color: var(--muted); text-align: center; line-height: 1.6; }
+
+/* number input on card */
+.card-counter {
+  display: flex; align-items: center; gap: 16px; margin-top: 16px;
+}
+.counter-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid var(--border); background: white;
+  font-size: 20px; font-weight: 700; color: var(--navy);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+.counter-btn:hover { background: var(--ice); }
+.counter-val { font-size: 26px; font-weight: 900; color: var(--navy); min-width: 30px; text-align: center; }
+
+/* hints */
+.hint-row { display: flex; justify-content: space-between; width: 100%; max-width: 360px; padding: 0 4px; }
+.hint-row span { font-size: 12px; font-weight: 600; }
+.hint-no  { color: var(--red); }
+.hint-yes { color: var(--green); }
+
+/* action buttons */
+.action-row { display: flex; gap: 24px; }
+.act-btn {
+  width: 66px; height: 66px; border-radius: 50%; border: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+}
+.act-btn:hover { transform: scale(1.1); }
+.act-btn:active { transform: scale(.95); }
+.act-no  { background: white; color: var(--red);   box-shadow: 0 4px 16px rgba(220,53,69,.22); }
+.act-yes { background: white; color: var(--green); box-shadow: 0 4px 16px rgba(0,163,108,.22); }
+
+/* ═══════════════════════════════════════
+   ── SCREEN: RESULTS ──
+═══════════════════════════════════════ */
+#s-result { background: var(--bg); overflow-y: auto; }
+
+.result-hero {
+  background: linear-gradient(150deg, var(--navy) 0%, var(--blue) 60%, var(--sky) 100%);
+  padding: 36px 24px 72px; text-align: center; color: white;
+  border-radius: 0 0 36px 36px;
+  margin-bottom: -36px;
+  position: relative;
+}
+.result-hero .rh-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.15); border-radius: 30px; padding: 5px 12px;
+  font-size: 12px; font-weight: 600; margin-bottom: 12px;
+}
+.result-hero h2 { font-size: 22px; font-weight: 900; margin-bottom: 6px; }
+.result-hero p  { font-size: 14px; opacity: .8; }
+
+.result-body { padding: 16px 16px 40px; }
+
+/* recommended badge */
+.rec-label {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--gold); color: white;
+  font-size: 11px; font-weight: 800; letter-spacing: .5px;
+  border-radius: 20px; padding: 4px 10px;
+  margin-bottom: 8px;
+}
+
+.plan-card {
+  background: white; border-radius: 22px;
+  box-shadow: var(--shadow);
+  overflow: hidden; margin-bottom: 16px;
+  border: 2px solid transparent;
+}
+.plan-card.featured { border-color: var(--sky); }
+
+.plan-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; justify-content: space-between;
+}
+.plan-header .ph-left h3 { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 3px; }
+.plan-header .ph-left p  { font-size: 12px; color: var(--muted); }
+.plan-price .amount { font-size: 30px; font-weight: 900; color: var(--navy); }
+.plan-price .per    { font-size: 12px; color: var(--muted); }
+
+.plan-cover-title {
+  padding: 14px 20px 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--muted);
+}
+.cover-list { padding: 0 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.ci {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 10px;
+  font-size: 13px; font-weight: 500;
+}
+.ci.yes { background: #F0FBF5; color: #006B45; }
+.ci.no  { background: #FEF2F2; color: #9B1C1C; }
+.ci .ci-icon { font-size: 17px; flex-shrink: 0; }
+.ci .ci-check { font-size: 14px; margin-left: auto; }
+
+.compare-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 16px; margin: 0 14px 16px;
+  border-radius: 10px; background: var(--ice);
+  color: var(--blue); font-size: 13px; font-weight: 600;
+  cursor: pointer; border: 1px solid rgba(0,85,165,.15);
+  transition: background .15s;
+}
+.compare-btn:hover { background: #D6E8F8; }
+
+.diff-tag {
+  font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; margin-left: auto;
+}
+.diff-tag.plus { background: #DEF7EC; color: #05603A; }
+.diff-tag.minus{ background: #FDE8E8; color: #9B1C1C; }
+
+.cta-block { padding: 0 0 8px; display: flex; flex-direction: column; gap: 10px; }
+.btn-outline {
+  width: 100%; padding: 14px;
+  background: white; color: var(--blue);
+  border: 2px solid var(--blue); border-radius: 14px;
+  font-size: 14px; font-weight: 700; font-family: inherit;
+  cursor: pointer; transition: background .15s;
+}
+.btn-outline:hover { background: var(--ice); }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 28px; left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 11px 22px; border-radius: 30px;
+  font-size: 14px; font-weight: 600; color: white;
+  transition: transform .28s cubic-bezier(.34,1.56,.64,1);
+  z-index: 9999; white-space: nowrap;
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.t-yes { background: var(--green); }
+.toast.t-no  { background: var(--red); }
+</style>
+</head>
+<body>
+
+<!-- ══════════ LANDING ══════════ -->
+<div class="screen active" id="s-landing">
+
+  <div class="hero">
+    <div class="hero-logo">CNP Assurances</div>
+    <div class="hero-badge">🎓 Fait pour les étudiants</div>
+    <h1>L'assurance qui s'adapte<br>à <em>votre vie</em></h1>
+    <p>Un questionnaire de 2 minutes. Une couverture taillée pour vous. Dès 12 €/mois.</p>
+    <div class="hero-price">
+      <div class="from">À partir de</div>
+      <div class="amount">12 <span style="font-size:20px">€</span></div>
+      <div class="per">par mois</div>
+    </div>
+    <button class="btn-hero" onclick="goTo('s-swipe'); initSwipe()">Découvrir ma mutuelle →</button>
+    <span class="btn-login-link" onclick="goTo('s-auth')">Déjà inscrit ? Se connecter</span>
+  </div>
+
+  <div class="section-title">Ce qu'on vous offre</div>
+  <div class="section-h2">Tout ce dont un étudiant a besoin</div>
+
+  <div class="avantages-scroll">
+    <div class="av-card">
+      <div class="av-icon">🏠</div>
+      <h3>Logement protégé</h3>
+      <p>Studio, coloc, résidence — votre espace est couvert contre le vol, les dégâts des eaux et l'incendie.</p>
+    </div>
+    <div class="av-card">
+      <div class="av-icon">🚗</div>
+      <h3>Mobilité assurée</h3>
+      <p>Voiture, scooter ou vélo — roulez l'esprit tranquille avec des garanties adaptées.</p>
+    </div>
+    <div class="av-card">
+      <div class="av-icon">🏥</div>
+      <h3>Santé complète</h3>
+      <p>Dentaire, optique, psychologue et bien plus — prenez soin de vous sans vous ruiner.</p>
+    </div>
+    <div class="av-card">
+      <div class="av-icon">💻</div>
+      <h3>High-tech couvert</h3>
+      <p>Votre ordi, votre téléphone, votre tablette — protégés contre le vol et la casse.</p>
+    </div>
+    <div class="av-card">
+      <div class="av-icon">✈️</div>
+      <h3>Voyage inclus</h3>
+      <p>Erasmus ou vacances — assistance médicale et rapatriement dans le monde entier.</p>
+    </div>
+    <div class="av-card">
+      <div class="av-icon">🐾</div>
+      <h3>Animaux bienvenus</h3>
+      <p>Vos compagnons à fourrure couverts pour les soins vétérinaires essentiels.</p>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-item"><div class="s-num">300 k+</div><div class="s-lbl">étudiants assurés</div></div>
+    <div class="stat-item"><div class="s-num">2 min</div><div class="s-lbl">pour s'inscrire</div></div>
+    <div class="stat-item"><div class="s-num">30 €</div><div class="s-lbl">maximum / mois</div></div>
+  </div>
+
+  <div class="section-title" style="padding-top:28px">Comment ça marche</div>
+  <div class="section-h2">Simple comme bonjour</div>
+
+  <div class="how-list">
+    <div class="how-item">
+      <div class="how-num">1</div>
+      <div>
+        <h4>Répondez aux questions</h4>
+        <p>Un questionnaire ludique en style swipe — pas de papiers, pas de jargon.</p>
+      </div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">2</div>
+      <div>
+        <h4>On construit votre mutuelle</h4>
+        <p>Notre algorithme sélectionne uniquement les garanties qui vous correspondent.</p>
+      </div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">3</div>
+      <div>
+        <h4>Souscrivez en un clic</h4>
+        <p>Comparez, choisissez, et souscrivez — vous êtes couvert immédiatement.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="landing-cta">
+    <button class="btn-primary" onclick="goTo('s-swipe'); initSwipe()">Créer mon profil gratuitement</button>
+  </div>
+</div>
+
+<!-- ══════════ AUTH ══════════ -->
+<div class="screen" id="s-auth">
+  <div class="auth-top">
+    <div class="logo">CNP <span>Étudiant</span></div>
+    <p>Votre espace personnel</p>
+  </div>
+  <div class="auth-body">
+    <div class="tab-row">
+      <button class="tab-btn active" id="tb-login" onclick="switchTab('login')">Connexion</button>
+      <button class="tab-btn" id="tb-reg" onclick="switchTab('reg')">Inscription</button>
+    </div>
+    <div class="form-panel active" id="fp-login">
+      <div class="field"><label>Adresse e-mail</label><input type="email" placeholder="prenom.nom@univ.fr"></div>
+      <div class="field"><label>Mot de passe</label><input type="password" placeholder="••••••••"></div>
+      <button class="btn-primary" onclick="goTo('s-swipe'); initSwipe()">Se connecter</button>
+      <p class="form-note">Mot de passe oublié ?</p>
+    </div>
+    <div class="form-panel" id="fp-reg">
+      <div class="field"><label>Prénom</label><input type="text" placeholder="Marie"></div>
+      <div class="field"><label>Nom</label><input type="text" placeholder="Dupont"></div>
+      <div class="field"><label>E-mail universitaire</label><input type="email" placeholder="marie.dupont@univ.fr"></div>
+      <div class="field"><label>Mot de passe</label><input type="password" placeholder="Minimum 8 caractères"></div>
+      <button class="btn-primary" onclick="goTo('s-swipe'); initSwipe()">Créer mon compte →</button>
+      <p class="form-note">En continuant vous acceptez nos CGU.</p>
+    </div>
+    <div style="padding-top:16px">
+      <button class="btn-outline" onclick="goTo('s-landing')">← Retour</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SWIPE ══════════ -->
+<div class="screen" id="s-swipe">
+  <div class="swipe-topbar">
+    <div class="logo-s">CNP <span>Étudiant</span></div>
+    <div class="prog-wrap">
+      <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:5%"></div></div>
+      <div class="prog-num" id="prog-num">1 / ?</div>
+    </div>
+  </div>
+
+  <div class="swipe-body">
+    <div class="cat-tag" id="cat-tag">🏠 Logement</div>
+
+    <div class="card-stack">
+      <div class="peek-card" id="peek-card"></div>
+      <div class="main-card" id="main-card">
+        <div class="ov-yes" id="ov-yes">OUI ✓</div>
+        <div class="ov-no"  id="ov-no">NON ✗</div>
+        <div class="card-emoji" id="card-emoji">🏠</div>
+        <div class="card-q" id="card-q">Avez-vous un logement étudiant ?</div>
+        <div class="card-d" id="card-d">Studio, appartement, résidence universitaire ou colocation.</div>
+        <div class="card-counter" id="card-counter" style="display:none">
+          <button class="counter-btn" onclick="changeCount(-1)">−</button>
+          <div class="counter-val" id="counter-val">1</div>
+          <button class="counter-btn" onclick="changeCount(1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hint-row">
+      <span class="hint-no">← Non</span>
+      <span class="hint-yes">Oui →</span>
+    </div>
+
+    <div class="action-row">
+      <button class="act-btn act-no"  onclick="answer(false)" title="Non">✕</button>
+      <button class="act-btn act-yes" onclick="answer(true)"  title="Oui">♥</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ RESULTS ══════════ -->
+<div class="screen" id="s-result">
+  <div class="result-hero">
+    <div class="rh-badge">🎉 Votre profil est prêt</div>
+    <h2>Voici vos deux mutuelles</h2>
+    <p>Comparez et choisissez celle qui vous correspond.</p>
+  </div>
+
+  <div class="result-body">
+    <!-- PLAN PERSO -->
+    <div class="plan-card featured" id="plan-perso">
+      <div style="padding:16px 20px 0">
+        <div class="rec-label">⭐ Recommandée pour vous</div>
+      </div>
+      <div class="plan-header">
+        <div class="ph-left">
+          <h3>CNP Étudiant Sur-Mesure</h3>
+          <p>Adaptée à votre questionnaire</p>
+        </div>
+        <div class="plan-price">
+          <div class="amount" id="price-perso">—</div>
+          <div class="per">/mois</div>
+        </div>
+      </div>
+      <div class="plan-cover-title">Ce qui est inclus</div>
+      <div class="cover-list" id="cl-perso"></div>
+      <div class="cta-block" style="padding:0 16px 16px">
+        <button class="btn-primary" onclick="subscribe('Sur-Mesure')">Souscrire cette offre</button>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;padding:4px 0 12px">
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+      <span style="font-size:12px;color:var(--muted);font-weight:600">VS offre de base</span>
+      <div style="flex:1;height:1px;background:var(--border)"></div>
+    </div>
+
+    <!-- PLAN BASE -->
+    <div class="plan-card" id="plan-base">
+      <div class="plan-header">
+        <div class="ph-left">
+          <h3>CNP Étudiant Essentiel</h3>
+          <p>Couverture obligatoire de base</p>
+        </div>
+        <div class="plan-price">
+          <div class="amount">12 €</div>
+          <div class="per">/mois</div>
+        </div>
+      </div>
+      <div class="plan-cover-title">Ce qui est inclus</div>
+      <div class="cover-list" id="cl-base"></div>
+      <div class="plan-cover-title" style="color:var(--red)">Ce qui manque vs votre profil</div>
+      <div class="cover-list" id="cl-missing"></div>
+      <div class="cta-block" style="padding:0 16px 16px">
+        <button class="btn-outline" onclick="subscribe('Essentiel')">Choisir l'offre de base</button>
+      </div>
+    </div>
+
+    <div style="padding-top:8px">
+      <button class="btn-outline" onclick="goTo('s-swipe'); initSwipe()">↺ Recommencer</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════════
+   QUESTION TREE
+══════════════════════════════════════════ */
+const Q = [
+  // 0 — root: logement
+  {
+    id:'logement', cat:'🏠 Logement', emoji:'🏠',
+    q:'Avez-vous un logement étudiant ?',
+    d:'Studio, appartement, résidence universitaire ou colocation.',
+    yes:[1,2,3,4,5], no:[], // if yes, push sub-questions
+    coverage:null, price:0,
+  },
+  // 1 — sub logement
+  {
+    id:'high_tech', cat:'🏠 Logement', emoji:'💻',
+    q:'Possédez-vous des biens technologiques à protéger ?',
+    d:'Ordinateur, téléphone, tablette, console de jeux…',
+    coverage:'Protection high-tech', price:3,
+  },
+  {
+    id:'tv', cat:'🏠 Logement', emoji:'📺',
+    q:'Possédez-vous une télévision ?',
+    d:'TV connectée, écran gaming ou home cinema.',
+    coverage:'Garantie TV & audiovisuel', price:1.5,
+  },
+  {
+    id:'animal', cat:'🏠 Logement', emoji:'🐾',
+    q:'Avez-vous un animal de compagnie ?',
+    d:'Chat, chien ou autre animal domestique.',
+    coverage:'Assurance animaux', price:2.5,
+    counter:true, counterLabel:'Combien d\'animaux ?',
+  },
+  {
+    id:'velo', cat:'🏠 Logement', emoji:'🚲',
+    q:'Avez-vous un vélo ou une trottinette ?',
+    d:'Y compris les modèles électriques.',
+    coverage:'Protection mobilité douce', price:2,
+  },
+  {
+    id:'cambriolage', cat:'🏠 Logement', emoji:'🔒',
+    q:'Souhaitez-vous une protection contre le cambriolage et le vol ?',
+    d:'Couverture des biens en cas d\'effraction ou de vol à domicile.',
+    coverage:'Garantie vol & cambriolage', price:2.5,
+  },
+  // 6 — root: vehicule
+  {
+    id:'vehicule', cat:'🚗 Véhicule', emoji:'🚗',
+    q:'Possédez-vous un véhicule ?',
+    d:'Voiture, moto ou scooter.',
+    yes:[7,8,9], no:[],
+    coverage:null, price:0,
+  },
+  {
+    id:'tous_risques', cat:'🚗 Véhicule', emoji:'🛡️',
+    q:'Souhaitez-vous une assurance tous risques ?',
+    d:'Couverture maximale : dommages, vol, incendie, bris de glace.',
+    coverage:'Assurance tous risques', price:5,
+  },
+  {
+    id:'panne', cat:'🚗 Véhicule', emoji:'🔧',
+    q:'Assistance en cas de panne ou de crevaison ?',
+    d:'Dépannage 24h/24, remorquage jusqu\'au garage le plus proche.',
+    coverage:'Assistance panne & crevaison', price:2,
+  },
+  {
+    id:'vehicule_remplacement', cat:'🚗 Véhicule', emoji:'🔄',
+    q:'Souhaitez-vous un véhicule de remplacement en cas de problème ?',
+    d:'Voiture de prêt pendant la durée des réparations.',
+    coverage:'Véhicule de remplacement', price:2,
+  },
+  // 10 — root: sante
+  {
+    id:'sante', cat:'❤️ Santé', emoji:'🏥',
+    q:'Souhaitez-vous une assurance maladie complémentaire ?',
+    d:'Remboursements au-delà de la Sécurité sociale.',
+    yes:[11,12,13,14,15,16], no:[],
+    coverage:'Santé de base', price:4,
+  },
+  {
+    id:'dentaire', cat:'❤️ Santé', emoji:'🦷',
+    q:'Avez-vous des besoins dentaires ?',
+    d:'Soins courants, orthodontie, implants, prothèses.',
+    coverage:'Soins dentaires', price:2.5,
+  },
+  {
+    id:'optique', cat:'❤️ Santé', emoji:'👓',
+    q:'Avez-vous des besoins optiques ?',
+    d:'Lunettes, lentilles de contact, chirurgie réfractive.',
+    coverage:'Optique & vision', price:2,
+  },
+  {
+    id:'auditif', cat:'❤️ Santé', emoji:'👂',
+    q:'Avez-vous besoin d\'aides auditives ?',
+    d:'Appareils auditifs, accessoires et entretien.',
+    coverage:'Audiologie', price:1.5,
+  },
+  {
+    id:'grossesse', cat:'❤️ Santé', emoji:'🤰',
+    q:'Êtes-vous enceinte ou prévoyez-vous une grossesse ?',
+    d:'Suivi renforcé, maternité, préparation à l\'accouchement.',
+    coverage:'Maternité & grossesse', price:3,
+  },
+  {
+    id:'psy', cat:'❤️ Santé', emoji:'🧠',
+    q:'Avez-vous des besoins en psychologie ?',
+    d:'Séances avec un psychologue ou un thérapeute agréé.',
+    coverage:'Soutien psychologique', price:2,
+  },
+  {
+    id:'voyage', cat:'❤️ Santé', emoji:'✈️',
+    q:'Comptez-vous voyager prochainement ?',
+    d:'Erasmus, stage à l\'étranger, vacances — assistance et rapatriement.',
+    coverage:'Assurance voyage', price:2,
+  },
+];
+
+/* Flat list of questions to ask, built dynamically */
+let queue = [];
+let qIdx  = 0;
+let answers = {}; // id → {yes, count}
+let counterVal = 1;
+
+/* BASE coverages (always included) */
+const BASE_COVERAGES = [
+  { emoji:'🛡️', label:'Responsabilité civile', price:0 },
+  { emoji:'⚕️', label:'Remboursement médecin généraliste', price:0 },
+  { emoji:'🚑', label:'Hospitalisation d\'urgence', price:0 },
+  { emoji:'📋', label:'Protection juridique de base', price:0 },
+];
+
+function buildQueue() {
+  queue = [];
+  // Always start with roots
+  queue.push(Q[0]);  // logement
+  queue.push(Q[6]);  // vehicule
+  queue.push(Q[10]); // sante
+}
+
+function initSwipe() {
+  answers = {};
+  counterVal = 1;
+  buildQueue();
+  qIdx = 0;
+  renderCard();
+}
+
+function renderCard() {
+  const card = document.getElementById('main-card');
+  card.classList.remove('fly-left','fly-right');
+  card.style.transform = '';
+
+  const ov_y = document.getElementById('ov-yes');
+  const ov_n = document.getElementById('ov-no');
+  ov_y.style.opacity = '0';
+  ov_n.style.opacity = '0';
+
+  const q = queue[qIdx];
+  document.getElementById('cat-tag').textContent   = q.cat;
+  document.getElementById('card-emoji').textContent = q.emoji;
+  document.getElementById('card-q').textContent     = q.q;
+  document.getElementById('card-d').textContent     = q.d;
+
+  const ctr = document.getElementById('card-counter');
+  if (q.counter) {
+    counterVal = 1;
+    document.getElementById('counter-val').textContent = counterVal;
+    ctr.style.display = 'flex';
+  } else {
+    ctr.style.display = 'none';
+  }
+
+  const total = queue.length;
+  const pct   = Math.max(((qIdx) / total) * 100, 5);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-num').textContent  = `${qIdx+1} / ${total}`;
+}
+
+function changeCount(d) {
+  counterVal = Math.max(1, counterVal + d);
+  document.getElementById('counter-val').textContent = counterVal;
+}
+
+function answer(yes) {
+  const q = queue[qIdx];
+  answers[q.id] = { yes, count: q.counter ? counterVal : null };
+
+  // If yes on a root with sub-questions, inject them
+  if (yes && q.yes && q.yes.length) {
+    const subs = q.yes.map(i => Q[i]);
+    queue.splice(qIdx + 1, 0, ...subs);
+  }
+
+  showToast(yes ? '✓ Pris en compte !' : '✗ Ignoré', yes ? 'yes' : 'no');
+  flyCard(yes ? 'right' : 'left', () => {
+    qIdx++;
+    if (qIdx >= queue.length) { buildResult(); goTo('s-result'); }
+    else { renderCard(); }
+  });
+}
+
+function flyCard(dir, cb) {
+  const card = document.getElementById('main-card');
+  card.classList.add(dir === 'right' ? 'fly-right' : 'fly-left');
+  setTimeout(cb, 360);
+}
+
+/* ══════════════════════════════════════════
+   RESULTS
+══════════════════════════════════════════ */
+function buildResult() {
+  // Collect selected coverages
+  const selected = [];
+  Q.forEach(q => {
+    if (q.coverage && answers[q.id] && answers[q.id].yes) {
+      let label = q.coverage;
+      if (q.counter && answers[q.id].count > 1) label += ` (×${answers[q.id].count})`;
+      selected.push({ emoji: q.emoji, label, price: q.price * (q.counter && answers[q.id].count ? answers[q.id].count : 1) });
+    }
+  });
+
+  // Price
+  const extras = selected.reduce((s, c) => s + c.price, 0);
+  const rawPrice = 12 + extras;
+  const persoPrice = Math.min(rawPrice, 30);
+
+  // PERSO card
+  const allInPerso = [...BASE_COVERAGES, ...selected];
+  document.getElementById('price-perso').textContent = persoPrice.toFixed(2) + ' €';
+  const clPerso = document.getElementById('cl-perso');
+  clPerso.innerHTML = allInPerso.map(c => `
+    <div class="ci yes">
+      <span class="ci-icon">${c.emoji}</span>
+      <span>${c.label}</span>
+      <span class="ci-check">✓</span>
+    </div>`).join('');
+
+  // BASE card: base_coverages only
+  const clBase = document.getElementById('cl-base');
+  clBase.innerHTML = BASE_COVERAGES.map(c => `
+    <div class="ci yes">
+      <span class="ci-icon">${c.emoji}</span>
+      <span>${c.label}</span>
+      <span class="ci-check">✓</span>
+    </div>`).join('');
+
+  // Missing from base
+  const clMissing = document.getElementById('cl-missing');
+  if (selected.length === 0) {
+    clMissing.innerHTML = '<div class="ci no"><span class="ci-icon">✅</span><span>Aucune garantie supplémentaire nécessaire</span></div>';
+  } else {
+    clMissing.innerHTML = selected.map(c => `
+      <div class="ci no">
+        <span class="ci-icon">${c.emoji}</span>
+        <span>${c.label}</span>
+        <span class="diff-tag minus">Non inclus</span>
+      </div>`).join('');
+  }
+}
+
+function subscribe(plan) {
+  alert(`✅ Super ! Vous avez choisi l'offre "${plan}".\nUn conseiller CNP vous contactera pour finaliser votre souscription.`);
+}
+
+/* ══════════════════════════════════════════
+   DRAG SWIPE
+══════════════════════════════════════════ */
+let startX = 0, curX = 0, isDrag = false;
+const mc = () => document.getElementById('main-card');
+const ovy= () => document.getElementById('ov-yes');
+const ovn= () => document.getElementById('ov-no');
+
+function onDragStart(e) {
+  if (!document.getElementById('s-swipe').classList.contains('active')) return;
+  isDrag = true; startX = (e.touches ? e.touches[0] : e).clientX;
+  mc().classList.add('dragging');
+}
+function onDragMove(e) {
+  if (!isDrag) return;
+  curX = (e.touches ? e.touches[0] : e).clientX - startX;
+  mc().style.transform = `translateX(${curX}px) rotate(${curX * .07}deg)`;
+  const p = Math.min(Math.abs(curX) / 80, 1);
+  if (curX > 0) { ovy().style.opacity = p; ovn().style.opacity = 0; }
+  else          { ovn().style.opacity = p; ovy().style.opacity = 0; }
+}
+function onDragEnd() {
+  if (!isDrag) return;
+  isDrag = false; mc().classList.remove('dragging');
+  if      (curX >  65) { answer(true); }
+  else if (curX < -65) { answer(false); }
+  else {
+    mc().style.transform = '';
+    ovy().style.opacity = '0'; ovn().style.opacity = '0';
+  }
+  curX = 0;
+}
+
+document.addEventListener('mousedown', onDragStart);
+document.addEventListener('mousemove', onDragMove);
+document.addEventListener('mouseup',   onDragEnd);
+document.addEventListener('touchstart', onDragStart, { passive:true });
+document.addEventListener('touchmove',  onDragMove,  { passive:true });
+document.addEventListener('touchend',   onDragEnd);
+
+/* ══════════════════════════════════════════
+   UTILS
+══════════════════════════════════════════ */
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function switchTab(t) {
+  document.getElementById('tb-login').classList.toggle('active', t === 'login');
+  document.getElementById('tb-reg').classList.toggle('active', t === 'reg');
+  document.getElementById('fp-login').classList.toggle('active', t === 'login');
+  document.getElementById('fp-reg').classList.toggle('active', t === 'reg');
+}
+
+let toastTimer;
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast show t-${type}`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = 'toast'; }, 1400);
+}
+</script>
+</body>
+</html>
