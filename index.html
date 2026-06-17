@@ -138,6 +138,30 @@ body {
   color: white;
   border-radius: 0 0 24px 24px;
   margin-bottom: -24px;
+  position: relative;
+}
+
+.subscribe-header .back-btn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.subscribe-header .back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
 }
 
 .subscribe-header .sh-badge {
@@ -1175,6 +1199,7 @@ body {
 <!-- ══════════ SUBSCRIBE FORM - STEP 1: GENERAL ═════════ -->
 <div class="screen" id="s-subscribe-general">
   <div class="subscribe-header">
+    <button class="back-btn" onclick="goTo('s-choice')" title="Quitter le formulaire">←</button>
     <div class="sh-badge">🔒 Souscription sécurisée</div>
     <h2>1. Informations générales</h2>
     <p>Remplissez vos informations personnelles.</p>
@@ -1218,6 +1243,7 @@ body {
 <!-- ══════════ SUBSCRIBE FORM - STEP 2: SANTE ═══════════ -->
 <div class="screen" id="s-subscribe-sante">
   <div class="subscribe-header">
+    <button class="back-btn" onclick="goTo('s-choice')" title="Quitter le formulaire">←</button>
     <div class="sh-badge">🔒 Souscription sécurisée</div>
     <h2>2. Informations santé</h2>
     <p>Remplissez vos informations de santé.</p>
@@ -1256,6 +1282,7 @@ body {
 <!-- ══════════ SUBSCRIBE FORM - STEP 3: CONDUCTEUR ══════════ -->
 <div class="screen" id="s-subscribe-conducteur">
   <div class="subscribe-header">
+    <button class="back-btn" onclick="goTo('s-choice')" title="Quitter le formulaire">←</button>
     <div class="sh-badge">🔒 Souscription sécurisée</div>
     <h2>3. Informations conducteur</h2>
     <p>Remplissez vos informations de conducteur.</p>
@@ -1317,6 +1344,7 @@ body {
 <!-- ══════════ SUBSCRIBE FORM - STEP 4: LOGEMENT ═══════════ -->
 <div class="screen" id="s-subscribe-logement">
   <div class="subscribe-header">
+    <button class="back-btn" onclick="goTo('s-choice')" title="Quitter le formulaire">←</button>
     <div class="sh-badge">🔒 Souscription sécurisée</div>
     <h2>4. Informations sur le logement</h2>
     <p>Remplissez vos informations de logement.</p>
@@ -1384,6 +1412,7 @@ body {
 <!-- ══════════ SUBSCRIBE FORM - STEP 5: PAIEMENT ══════════ -->
 <div class="screen" id="s-subscribe-paiement">
   <div class="subscribe-header">
+    <button class="back-btn" onclick="goTo('s-choice')" title="Quitter le formulaire">←</button>
     <div class="sh-badge">🔒 Souscription sécurisée</div>
     <h2>5. Informations de paiement</h2>
     <p>Choisissez votre mode de paiement.</p>
@@ -1949,12 +1978,11 @@ function submitSubscribe() {
     plan: selectedPlan
   };
   
-  // Afficher un message de confirmation
-  alert(`✅ Félicitations ! Votre souscription pour l'offre "${selectedPlan}" a été enregistrée avec succès.\n\nUn email de confirmation vous sera envoyé à l'adresse : ${formData.general.email}\n\nVotre couverture sera active sous 24 à 48 heures.`);
-  
-  // Réinitialiser et retourner à l'accueil
+  // Réinitialiser le formulaire
   resetForm();
-  goTo('s-landing');
+  
+  // Afficher la page de confirmation
+  goTo('s-confirmation');
 }
 
 // Fonction pour soumettre le formulaire de contact
