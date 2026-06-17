@@ -1822,8 +1822,15 @@ function goToSubscribeLogementFromGeneral() {
 
 // Fonction pour soumettre le formulaire de souscription
 function submitSubscribe() {
-  // Valider l'écran actuel (s-subscribe-logement ou autre)
-  if (!validateCurrentScreen('s-subscribe-logement')) {
+  // Trouver l'écran de souscription actuellement actif
+  const activeSubscribeScreen = document.querySelector('.screen[id^="s-subscribe"].active');
+  if (!activeSubscribeScreen) {
+    showToast('Aucun formulaire de souscription actif', 'no');
+    return;
+  }
+  
+  // Valider l'écran actif
+  if (!validateCurrentScreen(activeSubscribeScreen.id)) {
     return;
   }
   
