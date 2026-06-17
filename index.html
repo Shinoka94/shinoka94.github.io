@@ -125,8 +125,7 @@ body {
 #s-subscribe-general,
 #s-subscribe-sante,
 #s-subscribe-conducteur,
-#s-subscribe-logement,
-#s-subscribe-paiement {
+#s-subscribe-logement {
   background: var(--bg);
   overflow-y: auto;
 }
@@ -299,70 +298,7 @@ body {
   cursor: not-allowed;
 }
 
-/* Payment options */
-.payment-options {
-  display: grid;
-  gap: 12px;
-}
 
-.payment-option {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.payment-option:hover {
-  border-color: var(--sky);
-  background: var(--ice);
-}
-
-.payment-option.selected {
-  border-color: var(--blue);
-  background: #D6E8F8;
-}
-
-.payment-option input {
-  display: none;
-}
-
-.payment-option .po-icon {
-  font-size: 24px;
-}
-
-.payment-option .po-label {
-  flex: 1;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--navy);
-}
-
-.payment-option .po-radio {
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--border);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.payment-option.selected .po-radio {
-  border-color: var(--blue);
-  background: var(--blue);
-}
-
-.payment-option.selected .po-radio::after {
-  content: '';
-  width: 8px;
-  height: 8px;
-  background: white;
-  border-radius: 50%;
-}
 
 /* ═══════════════════════════════════════
    ── SCREEN: CONTACT FORM ──
@@ -1403,55 +1339,12 @@ body {
       </div>
       <div class="form-actions">
         <button class="btn-form secondary" onclick="goTo('s-subscribe-conducteur')">← Retour</button>
-        <button class="btn-form primary" onclick="goTo('s-subscribe-paiement')">Suivant →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ SUBSCRIBE FORM - STEP 5: PAIEMENT ══════════ -->
-<div class="screen" id="s-subscribe-paiement">
-  <div class="subscribe-header">
-    <button class="back-btn" onclick="goTo('s-choice')" title="Quitter le formulaire">←</button>
-    <div class="sh-badge">🔒 Souscription sécurisée</div>
-    <h2>5. Informations de paiement</h2>
-    <p>Choisissez votre mode de paiement.</p>
-  </div>
-  
-  <div class="subscribe-body">
-    <div class="form-section">
-      <div class="form-grid">
-        <div class="form-field">
-          <label>Choisissez votre mode de paiement *</label>
-          <div class="payment-options">
-            <label class="payment-option selected" for="paiement-carte">
-              <input type="radio" id="paiement-carte" name="paiement" value="carte" checked>
-              <span class="po-icon">💳</span>
-              <span class="po-label">Paiement par Carte</span>
-              <span class="po-radio"></span>
-            </label>
-            <label class="payment-option" for="paiement-apple">
-              <input type="radio" id="paiement-apple" name="paiement" value="apple">
-              <span class="po-icon">🍎</span>
-              <span class="po-label">Apple Pay</span>
-              <span class="po-radio"></span>
-            </label>
-            <label class="payment-option" for="paiement-paypal">
-              <input type="radio" id="paiement-paypal" name="paiement" value="paypal">
-              <span class="po-icon">💰</span>
-              <span class="po-label">Paypal</span>
-              <span class="po-radio"></span>
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="form-actions">
-        <button class="btn-form secondary" onclick="goTo('s-subscribe-logement')">← Retour</button>
         <button class="btn-form primary" onclick="submitSubscribe()">Finaliser la souscription →</button>
       </div>
     </div>
   </div>
 </div>
+
 
 <!-- ══════════ CONTACT FORM ══════════ -->
 <div class="screen" id="s-contact">
@@ -1810,13 +1703,6 @@ function resetForm() {
     }
   });
   
-  // Réinitialiser les options de paiement
-  document.getElementById('paiement-carte').checked = true;
-  document.querySelectorAll('.payment-option').forEach(opt => {
-    opt.classList.remove('selected');
-  });
-  document.getElementById('paiement-carte').parentElement.classList.add('selected');
-  
   // Masquer les détails des antécédents
   document.getElementById('antecedentsDetailsField').style.display = 'none';
 }
@@ -1907,8 +1793,8 @@ function goToSubscribeLogement() {
   if (hasLogement) {
     goTo('s-subscribe-logement');
   } else {
-    // Passer directement à la section paiement
-    goTo('s-subscribe-paiement');
+    // Passer directement à la confirmation (plus de paiement)
+    submitSubscribe();
   }
 }
 
@@ -1918,8 +1804,8 @@ function goToSubscribeLogementFromSante() {
   if (hasLogement) {
     goTo('s-subscribe-logement');
   } else {
-    // Passer directement à la section paiement
-    goTo('s-subscribe-paiement');
+    // Passer directement à la confirmation (plus de paiement)
+    submitSubscribe();
   }
 }
 
@@ -1929,15 +1815,22 @@ function goToSubscribeLogementFromGeneral() {
   if (hasLogement) {
     goTo('s-subscribe-logement');
   } else {
-    // Passer directement à la section paiement
-    goTo('s-subscribe-paiement');
+    // Passer directement à la confirmation (plus de paiement)
+    submitSubscribe();
   }
 }
 
 // Fonction pour soumettre le formulaire de souscription
 function submitSubscribe() {
-  // Valider l'écran de paiement
-  if (!validateCurrentScreen('s-subscribe-paiement')) {
+  // Trouver l'écran de souscription actuellement actif
+  const activeSubscribeScreen = document.querySelector('.screen[id^="s-subscribe"].active');
+  if (!activeSubscribeScreen) {
+    showToast('Aucun formulaire de souscription actif', 'no');
+    return;
+  }
+  
+  // Valider l'écran actif
+  if (!validateCurrentScreen(activeSubscribeScreen.id)) {
     return;
   }
   
@@ -1974,7 +1867,6 @@ function submitSubscribe() {
       estColocation: document.getElementById('estColocation').value,
       alarmeIntrusion: document.getElementById('alarmeIntrusion').value
     },
-    paiement: document.querySelector('input[name="paiement"]:checked').value,
     plan: selectedPlan
   };
   
@@ -2008,23 +1900,7 @@ function submitContact(event) {
   document.getElementById('contactPhone').value = '';
 }
 
-// Gestion des options de paiement
-function initPaymentOptions() {
-  document.querySelectorAll('.payment-option').forEach(option => {
-    option.addEventListener('click', function() {
-      document.querySelectorAll('.payment-option').forEach(opt => {
-        opt.classList.remove('selected');
-      });
-      this.classList.add('selected');
-      this.querySelector('input').checked = true;
-    });
-  });
-}
 
-// Appeler l'initialisation au chargement
-window.addEventListener('DOMContentLoaded', function() {
-  initPaymentOptions();
-});
 
 /* ══════════════════════════════════════════
    DRAG SWIPE
