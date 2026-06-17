@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>CNP Étudiant – Espace Membre</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root {
+  --navy:   #002B6B;
+  --blue:   #0055A5;
+  --sky:    #0077C8;
+  --ice:    #E6F1FA;
+  --green:  #00A36C;
+  --red:    #DC3545;
+  --gold:   #F4A922;
+  --white:  #FFFFFF;
+  --bg:     #F2F5FA;
+  --border: #D4DFF0;
+  --text:   #0D1B2A;
+  --muted:  #6B7E9A;
+  --r-card: 20px;
+  --shadow: 0 8px 32px rgba(0,43,107,.13);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════
+   MEMBER HOME
+═══════════════════════════════════════ */
+.member-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  padding: 40px 24px 60px;
+  text-align: center;
+  color: white;
+  border-radius: 0 0 24px 24px;
+  margin-bottom: -24px;
+  position: relative;
+}
+
+.member-header .welcome-text {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.member-header .welcome-subtext {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.member-body {
+  flex: 1;
+  padding: 16px 24px 24px;
+}
+
+/* Member Navbar */
+.member-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 -4px 20px rgba(0,43,107,0.08);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 10px;
+}
+
+.nav-item.active {
+  background: var(--ice);
+}
+
+.nav-item .nav-icon {
+  font-size: 20px;
+}
+
+.nav-item .nav-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.nav-item.active .nav-label {
+  color: var(--blue);
+}
+
+.nav-item.active .nav-icon {
+  color: var(--blue);
+}
+
+/* Payment Card */
+.payment-card {
+  background: white;
+  border-radius: var(--r-card);
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.payment-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.payment-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.payment-amount {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--navy);
+}
+
+.payment-amount .currency {
+  font-size: 18px;
+}
+
+.payment-amount .period {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.payment-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-payment {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--blue);
+}
+
+.btn-payment:hover {
+  background: var(--ice);
+  border-color: var(--sky);
+}
+
+/* Contract Card */
+.contract-card {
+  background: white;
+  border-radius: var(--r-card);
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.contract-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+
+.contract-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contract-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg);
+  border-radius: 10px;
+}
+
+.contract-item-icon {
+  font-size: 20px;
+}
+
+.contract-item-info {
+  flex: 1;
+}
+
+.contract-item-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.contract-item-subtitle {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.contract-item-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+/* Options List */
+.options-section {
+  margin-top: 16px;
+}
+
+.options-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.option-item .option-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.option-item .option-check {
+  font-size: 14px;
+  margin-left: auto;
+  color: var(--green);
+}
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 100px; left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 11px 22px; border-radius: 30px;
+  font-size: 14px; font-weight: 600; color: white;
+  transition: transform .28s cubic-bezier(.34,1.56,.64,1);
+  z-index: 9999; white-space: nowrap;
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.t-yes { background: var(--green); }
+.toast.t-no  { background: var(--red); }
+
+/* Logout button */
+.logout-btn {
+  background: rgba(255,255,255,0.2); 
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.logout-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+</style>
+</head>
+<body>
+
+  <div class="member-header">
+    <div class="welcome-text" id="welcomeText">Bonjour</div>
+    <div class="welcome-subtext">Voici votre espace personnel</div>
+    <div style="position: absolute; top: 16px; right: 16px;">
+      <button class="logout-btn" onclick="logout()">🔒 Déconnexion</button>
+    </div>
+  </div>
+  
+  <div class="member-body">
+    <!-- Payment Card -->
+    <div class="payment-card">
+      <div class="payment-card-header">
+        <div class="payment-card-title">Votre abonnement</div>
+      </div>
+      <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px;">
+        <span class="payment-amount">
+          <span class="currency">24</span><span style="font-size: 18px;">€</span>
+        </span>
+        <span class="period">/mois</span>
+      </div>
+      <div class="payment-actions">
+        <button class="btn-payment" onclick="showInvoice()">📄 Voir ma facture</button>
+        <button class="btn-payment" onclick="postponePayment()">📅 Décaler ma facture</button>
+        <button class="btn-payment" onclick="viewContract()">📋 Revoir mon contrat</button>
+      </div>
+    </div>
+
+    <!-- Contract Summary Card -->
+    <div class="contract-card">
+      <div class="contract-card-title">Votre contrat en résumé</div>
+      <div class="contract-summary">
+        <div class="contract-item">
+          <div class="contract-item-icon">🏠</div>
+          <div class="contract-item-info">
+            <div class="contract-item-title">Assurance maison</div>
+            <div class="contract-item-subtitle">Protection complète de votre logement</div>
+          </div>
+          <div class="contract-item-price">12 €/mois</div>
+        </div>
+        <div class="contract-item">
+          <div class="contract-item-icon">🏥</div>
+          <div class="contract-item-info">
+            <div class="contract-item-title">Assurance santé</div>
+            <div class="contract-item-subtitle">Couverture médicale étendue</div>
+          </div>
+          <div class="contract-item-price">12 €/mois</div>
+        </div>
+      </div>
+      
+      <div class="options-section">
+        <div class="options-title">Options souscrites</div>
+        <div class="options-list">
+          <div class="option-item">
+            <span class="option-icon">💻</span>
+            <span>Protection high-tech</span>
+            <span class="option-check">✓</span>
+          </div>
+          <div class="option-item">
+            <span class="option-icon">🚲</span>
+            <span>Protection vélo</span>
+            <span class="option-check">✓</span>
+          </div>
+          <div class="option-item">
+            <span class="option-icon">✈️</span>
+            <span>Assurance voyage</span>
+            <span class="option-check">✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Member Navbar -->
+  <div class="member-navbar">
+    <div class="nav-item active" onclick="navigateTo('home')">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Accueil</span>
+    </div>
+    <div class="nav-item" onclick="navigateTo('requests')">
+      <span class="nav-icon">📋</span>
+      <span class="nav-label">Demandes</span>
+    </div>
+    <div class="nav-item" onclick="navigateTo('resources')">
+      <span class="nav-icon">📚</span>
+      <span class="nav-label">Ressources</span>
+    </div>
+    <div class="nav-item" onclick="navigateTo('profile')">
+      <span class="nav-icon">👤</span>
+      <span class="nav-label">Profil</span>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════════
+   MEMBER FUNCTIONS
+══════════════════════════════════════════ */
+
+// Get current user from localStorage
+let currentUser = JSON.parse(localStorage.getItem('cnpUser'));
+
+// Update welcome message on page load
+window.onload = function() {
+  if (currentUser) {
+    document.getElementById('welcomeText').textContent = `Bonjour ${currentUser.name}`;
+  } else {
+    // If no user, redirect to login
+    window.location.href = 'index.html';
+  }
+};
+
+// Member navigation functions
+function navigateTo(page) {
+  // Remove active class from all nav items
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.remove('active');
+  });
+  
+  // Add active class to clicked item
+  event.currentTarget.classList.add('active');
+  
+  // For demo purposes, we'll just show a toast
+  const pageNames = {
+    'home': 'Accueil',
+    'requests': 'Demandes',
+    'resources': 'Ressources',
+    'profile': 'Profil'
+  };
+  
+  showToast(`Navigation vers ${pageNames[page]}`, 'yes');
+}
+
+// Payment and contract functions
+function showInvoice() {
+  showToast('Votre facture s\'affiche...', 'yes');
+}
+
+function postponePayment() {
+  showToast('Votre paiement a été reporté', 'yes');
+}
+
+function viewContract() {
+  showToast('Votre contrat s\'affiche...', 'yes');
+}
+
+// Logout function
+function logout() {
+  localStorage.removeItem('cnpUser');
+  showToast('Déconnexion réussie', 'yes');
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 500);
+}
+
+/* Toast function */
+let toastTimer;
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast show t-${type}`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = 'toast'; }, 1400);
+}
+</script>
+</body>
+</html>
