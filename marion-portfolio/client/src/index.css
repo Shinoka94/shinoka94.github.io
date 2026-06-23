@@ -1,0 +1,174 @@
+/*
+  Portfolio Marion Ziebel — Direction "Atelier Éditorial"
+  Palette exacte du CV :
+    - Bleu sarcelle  #3E87A9  (titres de section, sticker Adaptabilité)
+    - Bordeaux/prune #3E222D  (sticker Créative, accents forts)
+    - Orange vif     #FF673B  (liens, highlights, CTA)
+    - Fond gris clair #F2F2F0 (fond du CV)
+    - Blanc pur      #FFFFFF
+    - Anthracite     #1A1A1A  (texte)
+  Typo : Fraunces (display serif) + Archivo (grotesque)
+*/
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Couleurs de marque — fidèles au CV */
+  --color-teal: var(--teal);
+  --color-teal-light: var(--teal-light);
+  --color-plum: var(--plum);
+  --color-orange: var(--orange);
+  --color-orange-soft: var(--orange-soft);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-mist: var(--mist);
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Archivo", system-ui, sans-serif;
+  --font-expanded: "Archivo Expanded", "Archivo", sans-serif;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Palette CV */
+  --teal:        #3E87A9;
+  --teal-light:  #B4CEDA;
+  --plum:        #3E222D;
+  --orange:      #FF673B;
+  --orange-soft: #FFE8E1;
+  --ink:         #1A1A1A;
+  --paper:       #F2F2F0;
+  --mist:        #E8E8E6;
+
+  /* Tokens sémantiques */
+  --background:           #F2F2F0;
+  --foreground:           #1A1A1A;
+  --card:                 #FFFFFF;
+  --card-foreground:      #1A1A1A;
+  --popover:              #FFFFFF;
+  --popover-foreground:   #1A1A1A;
+  --primary:              #3E222D;
+  --primary-foreground:   #F2F2F0;
+  --secondary:            #E8E8E6;
+  --secondary-foreground: #3E222D;
+  --muted:                #E2E2E0;
+  --muted-foreground:     #6B6B69;
+  --accent:               #FF673B;
+  --accent-foreground:    #FFFFFF;
+  --destructive:          #b3261e;
+  --destructive-foreground: #ffffff;
+  --border:               #D8D8D6;
+  --input:                #D8D8D6;
+  --ring:                 #3E87A9;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+  ::selection {
+    background: var(--teal);
+    color: #fff;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href] {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  .flex { min-height: 0; min-width: 0; }
+
+  @media (min-width: 640px) {
+    .container { padding-left: 2rem; padding-right: 2rem; }
+  }
+  @media (min-width: 1024px) {
+    .container { padding-left: 2.5rem; padding-right: 2.5rem; max-width: 1320px; }
+  }
+}
+
+/* Texture papier subtile */
+.paper-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
+}
+
+/* Label en petites capitales lettrées */
+.eyebrow {
+  font-family: var(--font-expanded);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  font-size: 0.72rem;
+}
+
+/* Lien souligné animé */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-out);
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
